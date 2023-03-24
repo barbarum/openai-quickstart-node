@@ -27,9 +27,9 @@ export default async function (req, res) {
 
   try {
     const completion = await openai.createCompletion({
-      model: "text-ada-001",
-      prompt: generatePrompt(animal),
-      temperature: 0.6,
+      model: "gpt-3.5-turbo-0301",
+      prompt: plainPrompt(animal),
+      temperature: 0.4,
     });
     res.status(200).json({ result: completion.data.choices[0].text });
   } catch(error) {
@@ -58,4 +58,8 @@ Animal: Dog
 Names: Ruff the Protector, Wonder Canine, Sir Barks-a-Lot
 Animal: ${capitalizedAnimal}
 Names:`;
+}
+
+function plainPrompt(prompt) {
+    return `${prompt}`;
 }

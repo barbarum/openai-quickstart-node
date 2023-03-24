@@ -26,12 +26,12 @@ export default async function (req, res) {
   }
 
   try {
-    const completion = await openai.createCompletion({
+    const completion = await openai.createChatCompletion({
       model: "gpt-3.5-turbo-0301",
-      prompt: plainPrompt(animal),
-      temperature: 0.4,
+      messages: plainPrompt(animal),
+      temperature: 0.8,
     });
-    res.status(200).json({ result: completion.data.choices[0].text });
+    res.status(200).json({ result: completion.data.choices[0].message.content });
   } catch(error) {
     // Consider adjusting the error handling logic for your use case
     if (error.response) {
@@ -61,5 +61,5 @@ Names:`;
 }
 
 function plainPrompt(prompt) {
-    return `${prompt}`;
+    return [{"role": "user", "content": `${prompt}`}];
 }

@@ -31,6 +31,7 @@ export default async function (req, res) {
       messages: plainPrompt(animal),
       temperature: 0.8,
     });
+    console.info(completion)
     res.status(200).json({ result: completion.data.choices[0].message.content });
   } catch(error) {
     // Consider adjusting the error handling logic for your use case
